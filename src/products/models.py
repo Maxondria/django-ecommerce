@@ -2,10 +2,12 @@ import os
 import random
 
 from django.db import models
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from .utils import upload_image_path, unique_slug_generator
 from django.urls import reverse
 from PIL import Image
+
+from .utils import unique_slug_generator, upload_image_path
 
 
 class ProductQuerySet(models.query.QuerySet):
@@ -15,6 +17,10 @@ class ProductQuerySet(models.query.QuerySet):
 
     def active(self):
         return self.filter(active=True)
+
+    def search(self, q):
+        lookups = Q(title__icontains=q) | Q(description__icontains=q)
+        return self.filter(lookups).distinct()
 
 
 class ProductManager(models.Manager):
@@ -30,6 +36,9 @@ class ProductManager(models.Manager):
 
     def features(self):
         return self.get_queryset().featured()
+
+    def search(self, q):
+        return self.get_queryset().active().search(q)
 
 
 class Product(models.Model):

@@ -11,11 +11,7 @@ class SearchProductView(ListView):
     def get_queryset(self):
         request = self.request
         q = request.GET.get("q", None)
-        return (
-            Product.objects.filter(title__icontains=q)
-            if q
-            else Product.objects.features()
-        )
+        return Product.objects.search(q) if q else Product.objects.features()
 
     def get_context_data(self, *args, **kwargs):
         context = super(SearchProductView, self).get_context_data(*args, **kwargs)
