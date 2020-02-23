@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # Custom apps
     "products.apps.ProductsConfig",
     "search.apps.SearchConfig",
+    "tags.apps.TagsConfig",
 ]
 
 MIDDLEWARE = [
