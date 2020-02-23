@@ -1,0 +1,65 @@
+{% url 'home' as home_url %}
+{% url 'contact' as contact_url %}
+{% url 'products:list' as products_list_url %}
+{% url 'login' as login_url %}
+{% url 'register' as register_url %}
+
+<div class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+    <div class="container">
+        <a class="navbar-brand" href="{{ home_url }}">
+            <img src="https://getbootstrap.com/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30"
+                class="d-inline-block align-top" alt="">
+            {% if brand_name %}
+                {{ brand_name }}
+            {% else %}
+                eCommerce
+            {% endif %}
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {% if request.path == home_url %} active {% endif %}">
+                    <a class="nav-link" href="{{ home_url }}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item nav-item {% if request.path == contact_url %} active {% endif %}">
+                    <a class="nav-link" href="{{ contact_url }}">Contact</a>
+                </li>
+                <li class="nav-item nav-item {% if request.path == products_list_url %} active {% endif %}">
+                    <a class="nav-link" href="{{ products_list_url }}">Products</a>
+                </li>
+
+
+                {% if request.user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Account
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Log out</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Account
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ login_url }}">Log In</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ register_url }}">Sign Up Here</a>
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+            {% include 'search/snippets/search-form.html' %}
+        </div>
+    </div>
+</div>

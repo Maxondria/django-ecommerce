@@ -4,6 +4,8 @@ import random
 from django.db import models
 from django.shortcuts import get_object_or_404
 from .utils import upload_image_path, unique_slug_generator
+from django.urls import reverse
+from PIL import Image
 
 
 class ProductQuerySet(models.query.QuerySet):
@@ -38,11 +40,21 @@ class Product(models.Model):
     image = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
     featured = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     objects = ProductManager()
 
     def get_absolute_url(self):
-        return f"/products/{self.slug}/"
+        return reverse("products:detail", kwargs={"slug": self.slug})
+
+    def save(self):
+        super().save()
+
+        img = Image.open(self.image.path)
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
 
     def __str__(self):
         return f"{self.title}"

@@ -2,7 +2,22 @@
 
 
 {% block content %}
-<div class="container">
+    <div class="row mb-3">
+        {% if q %}
+        <div class="col-12 mb-3">
+            Results for <b>{{ q }}</b>
+            <hr>
+        </div>  
+        {% else %}
+            <div class="col-12 col-md-8 mx-auto py-5">
+                {% include 'search/snippets/search-form.html' %}
+            </div>
+            <div class="col-12">
+                <hr>
+            </div>
+        {% endif %}
+    </div>
+
     <div class="row">
         {% for product in products %}
         <div class="col">
@@ -18,5 +33,4 @@
 
         {% endfor %}
     </div>
-</div>
 {% endblock content %} 

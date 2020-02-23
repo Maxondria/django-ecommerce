@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Custom apps
     "products.apps.ProductsConfig",
+    "search.apps.SearchConfig",
 ]
 
 MIDDLEWARE = [

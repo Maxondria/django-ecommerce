@@ -1,7 +1,29 @@
 from django.contrib.auth import authenticate, get_user_model, login
 from django.shortcuts import redirect, render
 
-from .forms import LoginForm, RegisterForm
+from .forms import ContactForm, LoginForm, RegisterForm
+
+
+def home_page(request):
+    context = {"title": "Home Page"}
+    return render(request, "home_page.html", context)
+
+
+def about_page(request):
+    context = {"title": "About Page"}
+    return render(request, "home_page.html", context)
+
+
+def contact_page(request):
+    contact_form = ContactForm(request.POST or None)
+    context = {
+        "title": "Contact",
+        "content": "Welcome to the contact page.",
+        "form": contact_form,
+    }
+    if contact_form.is_valid():
+        print(contact_form.cleaned_data)
+    return render(request, "contact/view.html", context)
 
 
 def login_page(request):

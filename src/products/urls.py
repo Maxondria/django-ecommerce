@@ -8,12 +8,14 @@ from .views import (
 )
 
 urlpatterns = [
-    path("", ProductListView.as_view(), name="product-list"),
-    path("<slug:slug>/", ProductDetailView.as_view(), name="product-detail"),
-    path("all/featured/", ProductFeaturedListView.as_view(), name="product-featured-list"),
+    path("", ProductListView.as_view(), name="list"),
+    path("<slug:slug>/", ProductDetailView.as_view(), name="detail"),
+    path("all/featured/", ProductFeaturedListView.as_view(), name="featured-list"),
     path(
         "featured/<slug:slug>/",
         ProductFeaturedDetailView.as_view(),
-        name="product-featured-detail",
+        name="featured-detail",
     ),
 ]
+
+app_name = "products"

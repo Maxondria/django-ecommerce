@@ -1,0 +1,31 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>
+        {% if title %}
+            {{ title }}
+        {% else %}
+            eCommerce, Welcome!
+        {% endif %}
+    </title>
+    {% include 'base/css.html' %}
+    {% block custom_css %} {% endblock custom_css %}  
+</head>
+
+<body>
+    {% include 'base/navbar.html' %}
+    <div class="container">
+        {% block content %}{% endblock content %}
+    </div>
+
+    {% include 'base/js.html' %}
+    {% block custom_js %}{% endblock custom_js %}    
+</body>
+
+</html>
