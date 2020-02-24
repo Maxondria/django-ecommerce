@@ -38,8 +38,8 @@ def login_page(request):
         user = authenticate(username=username, password=password)
         if user:
             login(request, user)
-            print(user.is_authenticated())
-            return redirect("login/")
+            print(user.is_authenticated)
+            return redirect("home")
     return render(request, "auth/login.html", context)
 
 

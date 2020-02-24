@@ -70,5 +70,9 @@ class Product(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path)
 
+    @property
+    def name(self):
+        return self.title
+
     def __str__(self):
         return f"{self.title}"

@@ -2,6 +2,7 @@ from django.shortcuts import render, Http404
 from django.views.generic import ListView, DetailView
 
 from .models import Product
+from carts.models import Cart
 
 
 class ProductListView(ListView):
@@ -27,6 +28,12 @@ class ProductListView(ListView):
 class ProductDetailView(DetailView):
     context_object_name = "product"
     # model = Product
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        cart, _is_new_cart = Cart.objects.new_or_get(self.request)
+        context["cart"] = cart
+        return context
 
     def get_queryset(self):
         slug = self.kwargs.get("slug")
