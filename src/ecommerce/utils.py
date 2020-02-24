@@ -36,3 +36,10 @@ def upload_image_path(instance, filename):
 def get_filename_ext(filepath):
     basename = os.path.basename(filepath)
     return os.path.splitext(basename)
+
+
+def unique_id_generator(instance):
+    order_id = random_string_generator().upper()
+    Klass = instance.__class__
+    qs_exists = Klass.objects.filter(order_id=order_id).exists()
+    return unique_slug_generator(instance) if qs_exists else order_id

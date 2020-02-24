@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from PIL import Image
 
-from .utils import unique_slug_generator, upload_image_path
+from ecommerce.utils import upload_image_path
 
 
 class ProductQuerySet(models.query.QuerySet):
